@@ -10,7 +10,6 @@ pull_request_rules:
       - label=dependencies
       - -draft
       - -conflict
-      - check-success=success
     actions:
       merge:
         method: rebase
