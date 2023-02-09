@@ -7,10 +7,12 @@ The bootstrap repository allows you to deploy the event-broker and all the micro
 
 
 ## Prerequisites
-- Make sure you have a running and active version of Docker
+- Make sure you have a running and active version of *Docker* and *docker-compose*.
 
 ## Usage:
 
 1. Clone the repo
-2. Run `docker-compose up -d`
+2. Create a `.env` file in the root directory with the following variables:
+   - `SIGNALR_CONNECTION_STRING`
+3. Run `docker-compose up -d`
 
