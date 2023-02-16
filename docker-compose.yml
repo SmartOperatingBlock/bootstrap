@@ -1,6 +1,7 @@
 ---
 version: '3'
 services:
+  
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.1
     container_name: zookeeper
@@ -11,6 +12,7 @@ services:
   broker:
     image: confluentinc/cp-kafka:7.3.1
     container_name: broker
+    hostname: broker
     ports:
       - "9092:9092"
       - "9101:9101"
@@ -36,14 +38,14 @@ services:
     command: |
       "
       echo -e 'Creating kafka topics'
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic hp-tracking --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic automation --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic room-event --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic process-event --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic step-manual-event --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic process-data --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic emergency-surgery --replication-factor 1 --partitions 1
-      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic surgery-scheduling --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic tracking-events --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic room-events --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic process-events --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic automation-events --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic step-manual-events --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic process-summary-events --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic emergency-surgery-events --replication-factor 1 --partitions 1
+      kafka-topics --bootstrap-server broker:29092 --create --if-not-exists --topic surgery-scheduling-events --replication-factor 1 --partitions 1
       echo -e 'Successfully created the following topics:'
       kafka-topics --bootstrap-server broker:29092 --list
       "    
@@ -60,3 +62,17 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'broker:29092'
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+
+  dt-event-gateway:
+    image: ghcr.io/smartoperatingblock/dt-event-gateway:1.0.0
+    container_name: dt-event-gateway
+    depends_on:
+      - zookeeper
+      - broker
+      - init-kafka
+      - schema-registry
+    environment:
+      SIGNALR_CONNECTION_STRING: ${SIGNALR_CONNECTION_STRING}
+      BOOTSTRAP_SERVER_URL: http://broker:29092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+    entrypoint: ./gradlew run
