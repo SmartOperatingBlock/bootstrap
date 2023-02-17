@@ -14,5 +14,6 @@ The bootstrap repository allows you to deploy the event-broker and all the micro
 1. Clone the repo
 2. Create a `.env` file in the root directory with the following variables:
    - `SIGNALR_CONNECTION_STRING`
+   - `MONGO_INSTANCE_URL`
 3. Run `docker-compose up -d`
 
