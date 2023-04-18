@@ -77,3 +77,9 @@ services:
       BOOTSTRAP_SERVER_URL: http://broker:29092
       SCHEMA_REGISTRY_URL: http://schema-registry:8081
     entrypoint: ./gradlew run
+
+  thing-description-directory:
+    image: ghcr.io/tinyiot/thing-directory:v1.0.0-beta.26
+    container_name: thing-description-directory
+    ports:
+      - 4000:8081
