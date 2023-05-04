@@ -68,10 +68,7 @@ services:
     image: ghcr.io/smartoperatingblock/dt-event-gateway:1.7.6
     container_name: dt-event-gateway
     depends_on:
-      - zookeeper
-      - broker
       - init-kafka
-      - schema-registry
     environment:
       SIGNALR_CONNECTION_STRING: ${SIGNALR_CONNECTION_STRING}
       BOOTSTRAP_SERVER_URL: http://broker:29092
@@ -83,3 +80,111 @@ services:
     container_name: thing-description-directory
     ports:
       - 4000:8081
+
+  medical-instrument-integration-microservice:
+    image: ghcr.io/smartoperatingblock/medical-instrument-integration-microservice:1.2.1
+    container_name: medical-instrument-integration-microservice
+    ports:
+      - 3000:3000
+    environment:
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      AZURE_DT_ENDPOINT: ${AZURE_DT_ENDPOINT}
+
+  user-management-integration-microservice:
+    image: ghcr.io/smartoperatingblock/user-management-integration-microservice:1.0.5
+    container_name: user-management-integration-microservice
+    ports:
+      - 3001:3000
+    environment:
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      AZURE_DT_ENDPOINT: ${AZURE_DT_ENDPOINT}
+      USER_MANAGEMENT_MONGODB_URL: ${USER_MANAGEMENT_MONGODB_URL}
+
+  surgery-booking-integration-microservice:
+    image: ghcr.io/smartoperatingblock/surgery-booking-integration-microservice:1.1.2
+    container_name: surgery-booking-integration-microservice
+    ports:
+      - 3002:3000
+    depends_on:
+      - patient-management-integration-microservice
+    environment:
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      AZURE_DT_ENDPOINT: ${AZURE_DT_ENDPOINT}
+      PATIENT_MANAGEMENT_INTEGRATION_MICROSERVICE_URL: http://patient-management-integration-microservice:3000/api/
+
+  patient-management-integration-microservice:
+    image: ghcr.io/smartoperatingblock/patient-management-integration-microservice:1.0.4
+    container_name: patient-management-integration-microservice
+    ports:
+      - 3003:3000
+    environment:
+      PATIENT_MANAGEMENT_MONGODB_URL: ${PATIENT_MANAGEMENT_MONGODB_URL}
+
+  staff-tracking-microservice:
+    image: ghcr.io/smartoperatingblock/staff-tracking-microservice:1.0.3
+    container_name: staff-tracking-microservice
+    ports:
+      - 3004:3000
+    depends_on:
+      - init-kafka
+    environment:
+      BOOTSTRAP_SERVER_URL: http://broker:29092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      STAFF_TRACKING_MONGODB_URL: ${STAFF_TRACKING_MONGODB_URL}
+      
+
+  automation-management-microservice:
+    image: ghcr.io/smartoperatingblock/automation-management-microservice:1.1.1
+    container_name: automation-management-microservice
+    depends_on:
+      - init-kafka
+      - thing-description-directory
+    environment:
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      AZURE_DT_ENDPOINT: ${AZURE_DT_ENDPOINT}
+      BOOTSTRAP_SERVER_URL: http://broker:29092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      CONFIG_PATH: ./config/config.yml
+      THING_DESCRIPTION_DIRECTORY_BASE_URL: http://thing-description-directory:4000/things/
+    volumes:
+      - /config:/config
+
+  building-management-microservice:
+    image: ghcr.io/smartoperatingblock/building-management-microservice:1.4.3
+    container_name: building-management-microservice
+    ports:
+      - 3005:3000
+    depends_on:
+      - init-kafka
+    environment:
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      AZURE_DT_ENDPOINT: ${AZURE_DT_ENDPOINT}
+      BOOTSTRAP_SERVER_URL: http://broker:29092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      MONGODB_CONNECTION_STRING: ${BUILDING_MANAGEMENT_MONGODB_URL}
+
+  surgical-process-monitoring-microservice:
+    image: ghcr.io/smartoperatingblock/surgical-process-monitoring-microservice:1.0.3
+    container_name: surgical-process-monitoring-microservice
+    ports:
+      - 3006:3000
+    depends_on:
+      - init-kafka
+    environment:
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      AZURE_DT_ENDPOINT: ${AZURE_DT_ENDPOINT}
+      BOOTSTRAP_SERVER_URL: http://broker:29092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      SURGICAL_PROCESS_MONGODB_URL: ${SURGICAL_PROCESS_MONGODB_URL}
