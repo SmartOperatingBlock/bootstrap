@@ -140,7 +140,7 @@ services:
       
 
   automation-management-microservice:
-    image: ghcr.io/smartoperatingblock/automation-management-microservice:1.1.1
+    image: ghcr.io/smartoperatingblock/automation-management-microservice:1.1.2
     container_name: automation-management-microservice
     depends_on:
       - init-kafka
