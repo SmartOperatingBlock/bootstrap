@@ -158,7 +158,7 @@ services:
       - /config:/config
 
   building-management-microservice:
-    image: ghcr.io/smartoperatingblock/building-management-microservice:1.4.3
+    image: ghcr.io/smartoperatingblock/building-management-microservice:1.4.4
     container_name: building-management-microservice
     ports:
       - 3005:3000
