@@ -116,7 +116,7 @@ services:
       AZURE_TENANT_ID: ${AZURE_TENANT_ID}
       AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
       AZURE_DT_ENDPOINT: ${AZURE_DT_ENDPOINT}
-      PATIENT_MANAGEMENT_INTEGRATION_MICROSERVICE_URL: http://patient-management-integration-microservice:3000/api/
+      PATIENT_MANAGEMENT_INTEGRATION_MICROSERVICE_URL: http://patient-management-integration-microservice:3000/api/v1
 
   patient-management-integration-microservice:
     image: ghcr.io/smartoperatingblock/patient-management-integration-microservice:1.0.4
