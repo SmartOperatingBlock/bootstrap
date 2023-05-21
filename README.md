@@ -22,6 +22,7 @@ The bootstrap repository allows you to deploy the event-broker and all the micro
    - `SIGNALR_CONNECTION_STRING`: connection string of signalR service
    - `STAFF_TRACKING_MONGODB_URL`: the mongodb's connection string for the staff tracking microservice
    - `SURGICAL_PROCESS_MONGODB_URL`: the mongodb's connection string for the surgical process monitoring microservice
+   - `SURGERY_REPORT_MONGODB_URL`: the mongodb's connection string for the surgery report microservice
    - `USER_MANAGEMENT_MONGODB_URL`: the mongodb's connection string for the user management microservice
 3. Edit the config file for the Automation management microservice in the `config` folder, or leave it as is if you are ok with the default settings. *Note: The file name must be `config.yml`.*
 4. Run the following command:

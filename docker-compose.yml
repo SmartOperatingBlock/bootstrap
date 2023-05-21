@@ -188,3 +188,20 @@ services:
       BOOTSTRAP_SERVER_URL: http://broker:29092
       SCHEMA_REGISTRY_URL: http://schema-registry:8081
       SURGICAL_PROCESS_MONGODB_URL: ${SURGICAL_PROCESS_MONGODB_URL}
+
+  surgery-report-microservice:
+    image: ghcr.io/smartoperatingblock/surgery-report-microservice:1.0.0
+    container_name: surgery-report-microservice
+    ports:
+      - 3007:3000
+    depends_on:
+      - patient-management-integration-microservice
+      - staff-tracking-microservice
+      - building-management-microservice
+    environment:
+      BOOTSTRAP_SERVER_URL: http://broker:29092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      MONGODB_CONNECTION_STRING: ${SURGERY_REPORT_MONGODB_URL}
+      PATIENT_MANAGEMENT_INTEGRATION_MICROSERVICE_URL: http://patient-management-integration-microservice:3000/api
+      STAFF_TRACKING_MICROSERVICE_URL: http://staff-tracking-microservice:3000/api/v1
+      BUILDING_MANAGEMENT_MICROSERVICE_URL: http://building-management-microservice:3000/api/v1
