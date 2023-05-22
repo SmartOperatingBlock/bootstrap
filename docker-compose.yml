@@ -202,6 +202,6 @@ services:
       BOOTSTRAP_SERVER_URL: http://broker:29092
       SCHEMA_REGISTRY_URL: http://schema-registry:8081
       MONGODB_CONNECTION_STRING: ${SURGERY_REPORT_MONGODB_URL}
-      PATIENT_MANAGEMENT_INTEGRATION_MICROSERVICE_URL: http://patient-management-integration-microservice:3000/api
+      PATIENT_MANAGEMENT_INTEGRATION_MICROSERVICE_URL: http://patient-management-integration-microservice:3000/api/v1
       STAFF_TRACKING_MICROSERVICE_URL: http://staff-tracking-microservice:3000/api/v1
       BUILDING_MANAGEMENT_MICROSERVICE_URL: http://building-management-microservice:3000/api/v1
