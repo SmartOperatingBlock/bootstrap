@@ -138,7 +138,6 @@ services:
       SCHEMA_REGISTRY_URL: http://schema-registry:8081
       STAFF_TRACKING_MONGODB_URL: ${STAFF_TRACKING_MONGODB_URL}
       
-
   automation-management-microservice:
     image: ghcr.io/smartoperatingblock/automation-management-microservice:1.1.2
     container_name: automation-management-microservice
@@ -205,3 +204,26 @@ services:
       PATIENT_MANAGEMENT_INTEGRATION_MICROSERVICE_URL: http://patient-management-integration-microservice:3000/api/v1
       STAFF_TRACKING_MICROSERVICE_URL: http://staff-tracking-microservice:3000/api/v1
       BUILDING_MANAGEMENT_MICROSERVICE_URL: http://building-management-microservice:3000/api/v1
+
+  api-gateway-microservice:
+    image: ghcr.io/smartoperatingblock/api-gateway-microservice:1.0.0
+    container_name: api-gateway-microservice
+    ports:
+      - 3008:3000
+    depends_on:
+      - staff-tracking-microservice
+      - surgical-process-monitoring-microservice
+      - building-management-microservice
+      - user-management-integration-microservice
+      - automation-management-microservice
+      - surgery-report-microservice
+
+    environment:
+      BOOTSTRAP_SERVER_URL: http://broker:29092
+      SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      USER_MANAGEMENT_MICROSERVICE_URL: http://user-management-integration-microservice:3000/api/v1
+      STAFF_TRACKING_MICROSERVICE_URL: http://staff-tracking-microservice:3000/api/v1
+      BUILDING_MANAGEMENT_MICROSERVICE_URL: http://building-management-microservice:3000/api/v1
+      SURGERY_REPORT_MICROSERVICE_URL: http://surgery-report-microservice:3000/api/v1
+      SURGICAL_PROCESS_MONITORING_MICROSERVICE_URL: http://surgical-process-monitoring-microservice:3000/api/v1
+
