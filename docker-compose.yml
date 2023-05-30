@@ -206,7 +206,7 @@ services:
       BUILDING_MANAGEMENT_MICROSERVICE_URL: http://building-management-microservice:3000/api/v1
 
   api-gateway-microservice:
-    image: ghcr.io/smartoperatingblock/api-gateway-microservice:1.1.0
+    image: ghcr.io/smartoperatingblock/api-gateway-microservice:1.1.1
     container_name: api-gateway-microservice
     ports:
       - 3008:3000
