@@ -154,7 +154,7 @@ services:
       CONFIG_PATH: ./config/config.yml
       THING_DESCRIPTION_DIRECTORY_BASE_URL: http://thing-description-directory:4000/things/
     volumes:
-      - /config:/config
+      - ./config:/config
 
   building-management-microservice:
     image: ghcr.io/smartoperatingblock/building-management-microservice:1.4.5
