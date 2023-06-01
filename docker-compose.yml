@@ -152,7 +152,7 @@ services:
       BOOTSTRAP_SERVER_URL: http://broker:29092
       SCHEMA_REGISTRY_URL: http://schema-registry:8081
       CONFIG_PATH: ./config/config.yml
-      THING_DESCRIPTION_DIRECTORY_BASE_URL: http://thing-description-directory:4000/things/
+      THING_DESCRIPTION_DIRECTORY_BASE_URL: http://thing-description-directory:8081/things/
     volumes:
       - ./config:/config
 
