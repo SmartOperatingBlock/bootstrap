@@ -139,7 +139,7 @@ services:
       STAFF_TRACKING_MONGODB_URL: ${STAFF_TRACKING_MONGODB_URL}
       
   automation-management-microservice:
-    image: ghcr.io/smartoperatingblock/automation-management-microservice:1.1.4
+    image: ghcr.io/smartoperatingblock/automation-management-microservice:1.1.5
     container_name: automation-management-microservice
     depends_on:
       - init-kafka
