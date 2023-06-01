@@ -210,6 +210,7 @@ services:
     container_name: api-gateway-microservice
     ports:
       - 3008:3000
+      - 3009:3001
     depends_on:
       - staff-tracking-microservice
       - surgical-process-monitoring-microservice
