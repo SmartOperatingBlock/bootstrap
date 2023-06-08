@@ -127,7 +127,7 @@ services:
       PATIENT_MANAGEMENT_MONGODB_URL: ${PATIENT_MANAGEMENT_MONGODB_URL}
 
   staff-tracking-microservice:
-    image: ghcr.io/smartoperatingblock/staff-tracking-microservice:1.0.5
+    image: ghcr.io/smartoperatingblock/staff-tracking-microservice:1.0.6
     container_name: staff-tracking-microservice
     ports:
       - 3004:3000
