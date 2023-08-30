@@ -173,7 +173,7 @@ services:
       MONGODB_CONNECTION_STRING: ${BUILDING_MANAGEMENT_MONGODB_URL}
 
   surgical-process-monitoring-microservice:
-    image: ghcr.io/smartoperatingblock/surgical-process-monitoring-microservice:1.2.14
+    image: ghcr.io/smartoperatingblock/surgical-process-monitoring-microservice:1.2.15
     container_name: surgical-process-monitoring-microservice
     ports:
       - 3006:3000
