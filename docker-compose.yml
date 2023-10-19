@@ -119,7 +119,7 @@ services:
       PATIENT_MANAGEMENT_INTEGRATION_MICROSERVICE_URL: http://patient-management-integration-microservice:3000/api/v1
 
   patient-management-integration-microservice:
-    image: ghcr.io/smartoperatingblock/patient-management-integration-microservice:1.0.11
+    image: ghcr.io/smartoperatingblock/patient-management-integration-microservice:1.0.12
     container_name: patient-management-integration-microservice
     ports:
       - 3003:3000
