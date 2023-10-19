@@ -93,7 +93,7 @@ services:
       AZURE_DT_ENDPOINT: ${AZURE_DT_ENDPOINT}
 
   user-management-integration-microservice:
-    image: ghcr.io/smartoperatingblock/user-management-integration-microservice:1.0.13
+    image: ghcr.io/smartoperatingblock/user-management-integration-microservice:1.0.14
     container_name: user-management-integration-microservice
     ports:
       - 3001:3000
