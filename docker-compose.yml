@@ -65,7 +65,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
   dt-event-gateway:
-    image: ghcr.io/smartoperatingblock/dt-event-gateway:1.7.12
+    image: ghcr.io/smartoperatingblock/dt-event-gateway:1.7.13
     container_name: dt-event-gateway
     depends_on:
       - init-kafka
