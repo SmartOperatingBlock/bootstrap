@@ -82,7 +82,7 @@ services:
       - 4000:8081
 
   medical-instrument-integration-microservice:
-    image: ghcr.io/smartoperatingblock/medical-instrument-integration-microservice:1.2.8
+    image: ghcr.io/smartoperatingblock/medical-instrument-integration-microservice:1.2.9
     container_name: medical-instrument-integration-microservice
     ports:
       - 3000:3000
