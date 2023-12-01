@@ -189,7 +189,7 @@ services:
       SURGICAL_PROCESS_MONGODB_URL: ${SURGICAL_PROCESS_MONGODB_URL}
 
   surgery-report-microservice:
-    image: ghcr.io/smartoperatingblock/surgery-report-microservice:1.0.15
+    image: ghcr.io/smartoperatingblock/surgery-report-microservice:1.0.16
     container_name: surgery-report-microservice
     ports:
       - 3007:3000
